@@ -11,7 +11,10 @@
 import { readFileSync, writeFileSync, readdirSync, statSync, mkdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-const NOTES = '/Users/khritik/my_website/bytescribble-notes/src/content/chapters';
+// Local dev reads the sibling checkout; CI passes NOTES_DIR for the notes
+// repo it checked out alongside.
+const NOTES =
+  process.env.NOTES_DIR || '/Users/khritik/my_website/bytescribble-notes/src/content/chapters';
 const OUT = new URL('../public/kb.json', import.meta.url).pathname;
 const SITE = 'https://notes.bytescribble.com';
 

@@ -19,6 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The knowledge base is generated from the notes repo, so check it out
+      # alongside and rebuild kb.json on every deploy. That way Bolo always
+      # knows the chapters that are currently published.
+      - uses: actions/checkout@v4
+        with:
+          repository: Hrtkk/bytescribble-notes
+          path: .notes
       - uses: actions/configure-pages@v5
         with:
           enablement: true
@@ -27,6 +34,9 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run kb
+        env:
+          NOTES_DIR: ${{ github.workspace }}/.notes/src/content/chapters
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
