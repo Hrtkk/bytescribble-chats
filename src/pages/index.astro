@@ -1,0 +1,123 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/newsreader/500.css';
+import '@fontsource/newsreader/600.css';
+import '../styles/global.css';
+
+const title = 'Bolo — ask your notes out loud';
+const description =
+  'A voice and text study companion for ByteScribble Notes. Ask a question in English, Hindi or Hinglish and hear the answer, grounded in the notes.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://chats.bytescribble.com/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chats.bytescribble.com/" />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="https://bytescribble.com">
+          <span class="brand-mark">Bol<em>o</em></span>
+          <span class="brand-tag">ask your notes, out loud</span>
+        </a>
+        <div class="topbar-spacer"></div>
+
+        <div class="seg" role="group" aria-label="Answer language">
+          <button data-lang="en" aria-pressed="true">English</button>
+          <button data-lang="hi" aria-pressed="false">हिन्दी</button>
+          <button data-lang="hinglish" aria-pressed="false">Hinglish</button>
+        </div>
+
+        <button id="voice-toggle" class="icon-btn" aria-pressed="true" title="Voice replies on/off" aria-label="Toggle voice replies">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H3v6h3l5 4z"></path>
+            <path class="wave" d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"></path>
+          </svg>
+        </button>
+      </header>
+
+      <main class="stage">
+        <div class="orb-wrap">
+          <canvas id="orb" aria-hidden="true"></canvas>
+        </div>
+
+        <p class="state-line" id="state-line" role="status" aria-live="polite">
+          Loading the notes…
+        </p>
+
+        <div class="mic-row">
+          <button id="mic" class="mic-btn" aria-pressed="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+              <path d="M5 11a7 7 0 0 0 14 0M12 18v4"></path>
+            </svg>
+            <span id="mic-label">Hold to speak</span>
+          </button>
+          <button id="hands-free" class="mic-btn ghost" aria-pressed="false" title="Hands-free: it listens, detects when you stop, and answers">
+            Hands-free
+          </button>
+        </div>
+
+        <p class="hint">
+          Hold <kbd>Space</kbd> to talk · <kbd>Esc</kbd> stops the reply
+        </p>
+
+        <div class="starters" id="starters">
+          <button class="starter">What are the six conditions for claiming ITC?</button>
+          <button class="starter">Explain the mirror formula</button>
+          <button class="starter">मूल अधिकार क्या हैं?</button>
+          <button class="starter">Cardiac cycle ke phases batao</button>
+          <button class="starter">What is the HCF–LCM relation?</button>
+        </div>
+      </main>
+
+      <section class="transcript" aria-label="Conversation">
+        <div class="transcript-head">
+          <span class="transcript-title">Transcript</span>
+          <span class="kb-pill" id="kb-pill">loading…</span>
+        </div>
+
+        <div class="thread" id="thread">
+          <div class="empty-state" id="empty">
+            <h2>Ask anything from the notes.</h2>
+            <p>Speak or type — in English, हिन्दी or Hinglish.<br />Answers are grounded in
+            notes.bytescribble.com and cite their source.</p>
+          </div>
+        </div>
+
+        <div class="banner" id="banner" hidden></div>
+
+        <form class="composer" id="composer">
+          <div class="composer-row">
+            <textarea id="input" rows="1" placeholder="Type a question…" autocomplete="off"></textarea>
+            <button class="send-btn" id="send" type="submit" disabled aria-label="Send">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12h15M13 6l6 6-6 6"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="composer-foot">
+            <span>Grounded in <a href="https://notes.bytescribble.com">notes.bytescribble.com</a></span>
+            <button type="button" id="clear" style="background:none;border:0;color:inherit;cursor:pointer;font-size:11.5px">Clear</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script>
+      import '../scripts/app.js';
+    </script>
+  </body>
+</html>

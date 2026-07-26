@@ -1,0 +1,17 @@
+{
+  "name": "bytescribble-chats",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "kb": "node scripts/build-kb.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.0.0",
+    "@fontsource/newsreader": "^5.0.0",
+    "astro": "^5.0.0"
+  }
+}
